@@ -14,6 +14,10 @@ const typeDefs = gql`
     feed: [Link]!
   }
 
+  type Mutation {
+    post(url: String!, description: String!): Link!
+  }
+
   type Link {
     id: ID!
     description: String!
@@ -25,6 +29,20 @@ const resolvers = {
   Query: {
     info: () => "HOckerNewsクローン",
     feed: () => links,
+  },
+  Mutation: {
+    post: (parent, args) => {
+      let idCount = links.length;
+
+      const link = {
+        id: `link-${idCount++}`,
+        description: args.description,
+        url: args.url,
+      };
+
+      links.push(link);
+      return link;
+    },
   },
 };
 
