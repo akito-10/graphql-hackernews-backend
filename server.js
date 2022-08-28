@@ -11,3 +11,10 @@ const resolvers = {
     info: () => "HOckerNewsクローン",
   },
 };
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen(({ url }) => console.log(`${url}でサーバーを起動中・・・`));
